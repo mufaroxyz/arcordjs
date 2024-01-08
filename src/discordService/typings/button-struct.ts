@@ -1,4 +1,4 @@
-type ButtonStructOptions = {
+export type ButtonStructOptions = {
   id: string;
   args: string[];
 };

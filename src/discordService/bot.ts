@@ -10,14 +10,13 @@ import { Preloader } from './preload';
 import { CommandType } from './typings/command';
 import chalk from 'chalk';
 import { createSpinner } from 'nanospinner';
-import { marked } from 'marked';
-import { markedTerminal } from 'marked-terminal';
+// import { markedTerminal } from 'marked-terminal';
 import { EventType } from './typings/event';
 import { ButtonType } from './typings/button';
 
 import { default as ARCORD_interactionCreate } from './arcord-events/ARCORD_interactionCreate';
 
-marked.use(markedTerminal() as any);
+// marked.use(markedTerminal() as any);
 
 export default class Bot extends Client {
   public commands = new Map<string, CommandType>();
@@ -92,12 +91,12 @@ export default class Bot extends Client {
     this.once('ready', async () => {
       await this.registerCommands();
 
-      this.loadingSpinner.success({
-        text: `${chalk.bold.magenta`Arcord.js - Logged in as ${this.user?.tag!}`}\n${marked(
-          `> **Commands:** ${this.commands.size}\n> **Events:** ${this.events.size}\n> **Buttons:** ${this.buttons.size}`
-        )}
-        `,
-      });
+      // this.loadingSpinner.success({
+      //   text: `${chalk.bold.magenta`Arcord.js - Logged in as ${this.user?.tag!}`}\n${marked(
+      //     `> **Commands:** ${this.commands.size}\n> **Events:** ${this.events.size}\n> **Buttons:** ${this.buttons.size}`
+      //   )}
+      //   `,
+      // });
     });
   }
 }

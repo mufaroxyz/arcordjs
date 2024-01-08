@@ -1,4 +1,5 @@
 import { ButtonBuilder } from 'discord.js';
+import { ButtonStructOptions } from '../typings/button-struct';
 
 export class ButtonStruct extends ButtonBuilder {
   constructor(options: ButtonStructOptions) {

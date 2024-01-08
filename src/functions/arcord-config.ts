@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import defaultConfig from "../default-config";
 
 export default function arcordConfig() {
   const arcordConfigPath = path.join(process.cwd(), "arcord.json");
@@ -8,9 +9,7 @@ export default function arcordConfig() {
     fs.writeFileSync(
       arcordConfigPath,
       JSON.stringify(
-        {
-          token: "",
-        },
+        defaultConfig,
         null,
         2
       )
