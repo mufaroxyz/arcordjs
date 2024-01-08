@@ -1,0 +1,19 @@
+{
+  "name": "arcord-test",
+  "version": "1.0.0",
+  "description": "A bot project created using acord",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "arcord dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "devDependencies": {
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.3.2"
+  }
+}
