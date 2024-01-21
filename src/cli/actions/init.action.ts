@@ -1,42 +1,44 @@
 import * as fs from 'fs';
 import { PM, install } from '../../functions/package-manager.js';
-import path, { basename, dirname, join } from 'path';
-import { Answers } from 'inquirer';
+import path, { basename, join } from 'path';
 import { templates, templatesDir } from '../../functions/template.js';
 import { createSpinner } from 'nanospinner';
 import chalk from 'chalk';
+import { ask } from '../../functions/inquirer-ask.js';
 
 export default async function initAction() {
-  const projectPath = path.resolve('arcord-project');
+  const answers = await ask();
 
-  const projectName = 'arcord-project';
+  const projectPath = path.resolve(answers.projectName);
+  const projectName = answers.projectName;
 
-  const pm: any = 'pnpm';
+  const pm = answers.manager;
 
   await copy(templates[0], projectPath, pm);
 
-  await install(PM.npm, projectPath);
+  if(pm !== PM.none)
+    await install(pm, projectPath);
 
   console.log(
-    chalk.greenBright('√'),
-    chalk.bold('Created discord.js project'),
+    chalk.greenBright('✔'),
+    chalk.bold(`Created ${chalk.magenta`arcord.js`} project`),
     chalk.gray('»'),
     chalk.greenBright(projectName)
   );
 
-  console.log(chalk.blueBright('?'), chalk.bold('Next Steps!'));
-  console.log(`\t> cd ${path.relative(process.cwd(), projectPath)}`);
-  console.log(`\t> // Configure your bot in .arcord.json`);
+  console.log(chalk.blueBright('?'), chalk.bold('Next Steps'));
+  console.log(`\t➜ cd ${path.relative(process.cwd(), projectPath)}`);
+  console.log(`\t➜ Configure your bot in arcord.config.json`);
 
-  if (pm !== PM.none) console.log(`\t> ${PM[pm]} run dev`);
+  if (pm !== PM.none) console.log(`\t➜ ${PM[pm]} run dev`);
   else {
-    console.log('\t> npm install');
-    console.log('\t> npm run dev');
+    console.log('\t➜ npm install');
+    console.log('\t➜ npm run dev');
   }
 }
 
 async function copy(template: string, path: string, pm: PM) {
-  const spinner = createSpinner('Copying template').start();
+  const spinner = createSpinner('Copying files').start();
 
   const name = basename(path);
 

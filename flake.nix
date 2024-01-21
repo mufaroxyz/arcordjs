@@ -17,9 +17,6 @@
   in {
     devShells.${system}.default = pkgs.mkShell {
       nativeBuildInputs = with pkgs; [
-        nodejs_21
-        nodePackages.pnpm
-        typescript
         swc
         bun
       ];

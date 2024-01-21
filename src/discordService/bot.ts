@@ -2,7 +2,6 @@ import {
   Client,
   GatewayIntentBits,
   DiscordjsErrorCodes,
-  ApplicationCommand,
   ApplicationCommandDataResolvable,
   ClientEvents,
 } from 'discord.js';
@@ -10,13 +9,10 @@ import { Preloader } from './preload';
 import { CommandType } from './typings/command';
 import chalk from 'chalk';
 import { createSpinner } from 'nanospinner';
-// import { markedTerminal } from 'marked-terminal';
 import { EventType } from './typings/event';
 import { ButtonType } from './typings/button';
 
 import { default as ARCORD_interactionCreate } from './arcord-events/ARCORD_interactionCreate';
-
-// marked.use(markedTerminal() as any);
 
 export default class Bot extends Client {
   public commands = new Map<string, CommandType>();
@@ -80,9 +76,9 @@ export default class Bot extends Client {
     await this.login(token).catch(err => {
       if (err.code === DiscordjsErrorCodes.TokenInvalid) {
         this.loadingSpinner.error({
-          text: chalk.red`An invalid token was provided in arcord.json file!`,
+          text: chalk.red`An invalid token was provided in arcord.config.json file!`,
         });
-        throw new Error('An invalid token was provided in arcord.json file!');
+        throw new Error('An invalid token was provided in arcord.config.json file!');
       } else {
         throw new Error(err);
       }

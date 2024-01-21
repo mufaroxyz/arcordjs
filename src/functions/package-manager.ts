@@ -6,6 +6,7 @@ export enum PM {
     npm,
     yarn,
     pnpm,
+    bun,
     none,
 }
 
@@ -23,7 +24,7 @@ export async function install(pm: Exclude<PM, PM.none>, path: string) {
         });
 }
 
-const Managers = ['npm', 'pnpm', 'yarn'] as const;
+const Managers = ['npm', 'pnpm', 'yarn', 'bun'] as const;
 
 export function getCurrentPackageManager() {
     const defaultManager = PM.npm;

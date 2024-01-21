@@ -3,7 +3,7 @@ import fs from "fs";
 import defaultConfig from "../default-config";
 
 export default function arcordConfig() {
-  const arcordConfigPath = path.join(process.cwd(), "arcord.json");
+  const arcordConfigPath = path.join(process.cwd(), "arcord.config.json");
   if (!fs.existsSync(arcordConfigPath)) {
     console.log("arcord.json not found, creating...");
     fs.writeFileSync(
