@@ -1,7 +1,7 @@
 # Folders
 /.cache
 /.git
-/dist
+/lib
 /docs
 /misc
 /node_modules
