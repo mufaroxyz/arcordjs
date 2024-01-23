@@ -1,19 +1,25 @@
-import path from 'path';
+import path, { dirname } from 'path';
 import chokidar from 'chokidar';
-
+import { fileURLToPath } from 'url';
 import { exec } from 'child_process';
 import chalk from 'chalk';
-import Bot from '../../discordService/bot';
-import arcordConfig from '../../functions/arcord-config';
+import Bot from '../../discord/bot.js';
+import arcordConfig from '../../functions/arcord-config.js';
 
 function getFileNameFromPath(filePath: string) {
   return filePath.split(path.sep).pop();
 }
 
+process.on("ABORT_ERR", () => {
+  return;
+})
+
 export default function devAction() {
   let bot = new Bot();
 
   const projectDir = path.join(process.cwd(), 'src');
+
+  const swcrc = path.join(fileURLToPath(dirname(import.meta.url)), '../../..', 'configs', '.swcrc')
 
   const watcher = chokidar.watch(projectDir, {
     ignored: /[\/\\]\./,
@@ -52,7 +58,9 @@ export default function devAction() {
     if (!watcherInitialized) {
       console.clear();
       watcherInitialized = true;
-      exec(`tsc-watch --noClear --silent`);
+      const ex = exec(`swc compile ${projectDir} --config-file ${swcrc} --quiet --watch --out-dir .arcord/cache/`);
+      ex.stdout?.pipe(process.stdout);
+      ex.stderr?.pipe(process.stderr);
 
       // exec('ts-clean-built --old --out .arcord --dir src');
       startBot();
@@ -65,8 +73,8 @@ export default function devAction() {
 
   async function restartBot() {
     // exec('ts-clean-built --old --out .arcord --dir src');
-    await bot.destroy();
-    bot = new Bot();
+      await bot.destroy()
+      bot = new Bot();
     startBot();
   }
 }

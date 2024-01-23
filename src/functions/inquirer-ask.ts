@@ -1,8 +1,8 @@
 import inquirer, { Answers, DistinctQuestion } from 'inquirer';
-import { PM } from './package-manager';
+import { PM } from './package-manager.js';
 import validate from 'validate-npm-package-name';
 import chalk from 'chalk';
-import { getCurrentPackageManager } from './package-manager';
+import { getCurrentPackageManager } from './package-manager.js';
 
 type ExpectedAnswers = {
     projectName: string;
@@ -10,7 +10,8 @@ type ExpectedAnswers = {
 }
 
 export async function ask(): Promise<ExpectedAnswers> {
-    const { version }: { version: string } = await Bun.file(new URL('../../package.json', import.meta.url)).json();
+    // const { version }: { version: string } = await Bun.file(new URL('../../package.json', import.meta.url)).json();
+    const { version } = await import('../../package.json').then(m => m.default);
 
     console.log(chalk.magenta`arcord.js`, " - ", version);
 
@@ -34,10 +35,11 @@ export async function ask(): Promise<ExpectedAnswers> {
             type: 'list',
             default: getCurrentPackageManager(),
             choices: [
-                { name: 'npm', value: PM.npm },
-                { name: 'yarn', value: PM.yarn },
-                { name: 'pnpm', value: PM.pnpm },
-                { name: 'bun (recommended)', value: PM.bun },
+                // I've got fucking headaches over node's ESM resolution im not fucking touching it make it bun only
+                // { name: 'npm', value: PM.npm },
+                // { name: 'yarn', value: PM.yarn },
+                // { name: 'pnpm', value: PM.pnpm },
+                { name: 'bun (only supported)', value: PM.bun },
                 {
                     name: 'none - do not install packages',
                     value: PM.none,

@@ -7,7 +7,7 @@ import {
   PermissionResolvable,
   SlashCommandBuilder,
 } from 'discord.js';
-import Bot from '../bot';
+import Bot from '../bot.js';
 
 interface CommandRunOptions {
   client: Bot;

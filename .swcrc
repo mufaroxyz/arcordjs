@@ -1,22 +1,23 @@
 {
   "$schema": "https://json.schemastore.org/swcrc",
-  "module": {
-    "type": "commonjs",
-    "strict": false,
-    "lazy": false,
-    "noInterop": false
-  },
   "jsc": {
-    "parser": {
-      "syntax": "typescript",
-      "dynamicImport": false,
-      "decorators": false,
-      "dts": true
-    },
-    "target": "esnext",
-    "loose": false,
-    "externalHelpers": false,
-    "keepClassNames": false
+      "parser": {
+          "syntax": "typescript",
+          "dynamicImport": false,
+          "decorators": false
+      },
+      "target": "esnext",
+      "loose": false,
+      "externalHelpers": false,
+      "keepClassNames": false
   },
-  "minify": false
+  "module": {
+      "type": "es6",
+      "strict": false,
+      "strictMode": false,
+      "lazy": false,
+      "noInterop": false
+  },
+  "minify": false,
+  "sourceMaps": true
 }

@@ -5,18 +5,19 @@ import { EventType } from './typings/event.js';
 import { ButtonType } from './typings/button.js';
 
 export class Preloader<T extends CommandType | EventType | ButtonType> {
-  constructor(private path: string) {}
+  constructor(private path: string) { }
+
 
   async load(): Promise<Map<string, T>> {
     const filesPath = path
-      .join(process.cwd(), '.arcord', this.path, '**/*.{js,ts}')
+      .join(process.cwd(), '.arcord', 'cache', this.path, '**/*.{js,ts}')
       .replace(/\\/g, '/');
 
     const files = await glob(filesPath);
 
     const modules = await Promise.all(
       files.map(async file => {
-        delete require.cache[require.resolve(file)];
+        // delete require.cache[require.resolve(file)];
         const { default: command } = await import(file);
         return command;
       })

@@ -5,23 +5,19 @@ import {
   ApplicationCommandDataResolvable,
   ClientEvents,
 } from 'discord.js';
-import { Preloader } from './preload';
-import { CommandType } from './typings/command';
-import chalk from 'chalk';
-import { createSpinner } from 'nanospinner';
-import { EventType } from './typings/event';
-import { ButtonType } from './typings/button';
+import { Preloader } from './preload.js';
+import { CommandType } from './typings/command.js';
+import { EventType } from './typings/event.js';
+import { ButtonType } from './typings/button.js';
 
-import { default as ARCORD_interactionCreate } from './arcord-events/ARCORD_interactionCreate';
+import { default as ARCORD_interactionCreate } from './arcord-events/ARCORD_interactionCreate.js';
+import { ArcordError } from '../types/ErrorCodes.js';
+import { Logger } from './services/logger.js';
 
 export default class Bot extends Client {
   public commands = new Map<string, CommandType>();
   public events = new Map<string, EventType>();
   public buttons = new Map<string, ButtonType>();
-
-  public loadingSpinner = createSpinner(chalk.yellow`Initalizing bot...`)
-    .spin()
-    .start();
 
   constructor() {
     super({
@@ -30,10 +26,6 @@ export default class Bot extends Client {
   }
 
   async registerCommands() {
-    this.loadingSpinner.update({
-      text: chalk.yellow`Loading commands...`,
-    });
-
     const JSONCommands: ApplicationCommandDataResolvable[] = [];
 
     const commandLoader = new Preloader<CommandType>('commands');
@@ -61,38 +53,31 @@ export default class Bot extends Client {
   }
 
   async registerButtons() {
+
     const buttonLoader = new Preloader<ButtonType>('buttons');
 
     this.buttons = await buttonLoader.load();
   }
 
   async start(token: string) {
-    this.loadingSpinner.update({
-      text: chalk.yellow`Preloading handlers...`,
-    });
+    Logger.info("Loading handlers");
 
     await Promise.all([this.registerEvents(), this.registerButtons()]);
 
     await this.login(token).catch(err => {
       if (err.code === DiscordjsErrorCodes.TokenInvalid) {
-        this.loadingSpinner.error({
-          text: chalk.red`An invalid token was provided in arcord.config.json file!`,
-        });
-        throw new Error('An invalid token was provided in arcord.config.json file!');
+        throw new Error(ArcordError.TokenInvalid);
       } else {
         throw new Error(err);
       }
     });
 
     this.once('ready', async () => {
-      await this.registerCommands();
-
-      // this.loadingSpinner.success({
-      //   text: `${chalk.bold.magenta`Arcord.js - Logged in as ${this.user?.tag!}`}\n${marked(
-      //     `> **Commands:** ${this.commands.size}\n> **Events:** ${this.events.size}\n> **Buttons:** ${this.buttons.size}`
-      //   )}
-      //   `,
-      // });
+      await this.registerCommands()
+      Logger.info("Bot started", {
+        tag: this.user?.tag,
+        id: this.user?.id,
+      });
     });
   }
 }

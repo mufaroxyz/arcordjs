@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import defaultConfig from "../default-config";
+import defaultConfig from "../default-config.js";
 
 export default function arcordConfig() {
   const arcordConfigPath = path.join(process.cwd(), "arcord.config.json");

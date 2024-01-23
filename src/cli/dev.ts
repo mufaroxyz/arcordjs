@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import devAction from './actions/dev.action';
+import devAction from './actions/dev.action.js';
 
 const devCommand = new Command()
   .command('dev')
