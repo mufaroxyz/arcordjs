@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.4
+
+### Patch Changes
+
+- Fix node-fetch not installed correctly
+
 ## 0.0.3
 
 ### Patch Changes
