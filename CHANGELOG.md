@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.7
+
+### Patch Changes
+
+- Add JSON assertions to prevent crashing
+
 ## 0.0.6
 
 ### Patch Changes
