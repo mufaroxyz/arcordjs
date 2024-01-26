@@ -1,9 +1,9 @@
 {
   "name": "arcordjs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "type": "module",
-  "exports": "./lib/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "build": "pnpm run build:common && pnpm run build:types",
     "build:common": "swc compile src --out-dir lib",

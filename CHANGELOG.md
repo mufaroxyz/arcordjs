@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.6
+
+### Patch Changes
+
+- Fix package.json entries
+
 ## 0.0.5
 
 ### Patch Changes
