@@ -10,16 +10,12 @@ function getFileNameFromPath(filePath: string) {
   return filePath.split(path.sep).pop();
 }
 
-process.on("ABORT_ERR", () => {
-  return;
-})
-
 export default function devAction() {
   let bot = new Bot();
 
   const projectDir = path.join(process.cwd(), 'src');
 
-  const swcrc = path.join(fileURLToPath(dirname(import.meta.url)), '../../..', 'configs', '.swcrc')
+  const swcrc = path.join(fileURLToPath(dirname(import.meta.url)), '../../..', 'configs', '.swcrc');
 
   const watcher = chokidar.watch(projectDir, {
     ignored: /[\/\\]\./,
@@ -58,7 +54,9 @@ export default function devAction() {
     if (!watcherInitialized) {
       console.clear();
       watcherInitialized = true;
-      const ex = exec(`swc compile ${projectDir} --config-file ${swcrc} --quiet --watch --out-dir .arcord/cache/`);
+      const ex = exec(
+        `swc compile ${projectDir} --config-file ${swcrc} --quiet --watch --out-dir .arcord/cache/`
+      );
       ex.stdout?.pipe(process.stdout);
       ex.stderr?.pipe(process.stderr);
 
@@ -72,9 +70,10 @@ export default function devAction() {
   }
 
   async function restartBot() {
-    // exec('ts-clean-built --old --out .arcord --dir src');
-      await bot.destroy()
+    console.log('Restarting bot...');
+    await bot.destroy().then(() => {
       bot = new Bot();
-    startBot();
+      startBot();
+    });
   }
 }

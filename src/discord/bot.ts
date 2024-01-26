@@ -53,15 +53,12 @@ export default class Bot extends Client {
   }
 
   async registerButtons() {
-
     const buttonLoader = new Preloader<ButtonType>('buttons');
 
     this.buttons = await buttonLoader.load();
   }
 
   async start(token: string) {
-    Logger.info("Loading handlers");
-
     await Promise.all([this.registerEvents(), this.registerButtons()]);
 
     await this.login(token).catch(err => {
@@ -72,9 +69,9 @@ export default class Bot extends Client {
       }
     });
 
-    this.once('ready', async () => {
-      await this.registerCommands()
-      Logger.info("Bot started", {
+    this.on('ready', async () => {
+      await this.registerCommands();
+      Logger.info('Bot started', {
         tag: this.user?.tag,
         id: this.user?.id,
       });

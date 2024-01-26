@@ -4,9 +4,13 @@ import { CommandType } from './typings/command.js';
 import { EventType } from './typings/event.js';
 import { ButtonType } from './typings/button.js';
 
-export class Preloader<T extends CommandType | EventType | ButtonType> {
-  constructor(private path: string) { }
+async function importFresh(modulePath: string) {
+  const cacheBustingModulePath = `${modulePath}?update=${Date.now()}`;
+  return (await import(cacheBustingModulePath)).default;
+}
 
+export class Preloader<T extends CommandType | EventType | ButtonType> {
+  constructor(private path: string) {}
 
   async load(): Promise<Map<string, T>> {
     const filesPath = path
@@ -18,7 +22,8 @@ export class Preloader<T extends CommandType | EventType | ButtonType> {
     const modules = await Promise.all(
       files.map(async file => {
         // delete require.cache[require.resolve(file)];
-        const { default: command } = await import(file);
+        // const { default: command } = await import(file);
+        const command = await importFresh(file);
         return command;
       })
     );
