@@ -1,0 +1,12 @@
+src
+.changeset
+.github
+pnpm-lock.yaml
+flake.lock
+flake.nix
+tsconfig.json
+.eslintignore
+.eslintrc.json
+.prettierrc.json
+.prettierignore
+.swcrc
