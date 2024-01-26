@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.5
+
+### Patch Changes
+
+- Update pnpm-lock.yaml so it matches with package.json
+
 ## 0.0.4
 
 ### Patch Changes
