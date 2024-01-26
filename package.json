@@ -5,11 +5,11 @@
   "type": "module",
   "exports": "./lib/index.js",
   "scripts": {
-    "build": "bun run build:clear && bun run build:common && bun run build:types",
+    "build": "pnpm run build:common && pnpm run build:types",
     "build:common": "swc compile src --out-dir lib",
     "build:types": "tsc",
-    "build:clear": "rm -rf ./lib",
-    "dev:test-local": "bun run build && bun link"
+    "dev:test-local": "pnpm run build && pnpm link",
+    "ci": "pnpm run build"
   },
   "bin": {
     "arcord": "lib/cli/index.js"
