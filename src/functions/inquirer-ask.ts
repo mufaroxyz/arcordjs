@@ -3,12 +3,16 @@ import { PM } from './package-manager.js';
 import validate from 'validate-npm-package-name';
 import chalk from 'chalk';
 import { getCurrentPackageManager } from './package-manager.js';
-import { version } from '../../package.json' assert { type: 'json' };
+// import { version } from '../../package.json' assert { type: 'json' };
+import { createRequire } from 'node:module';
 
 type ExpectedAnswers = {
   projectName: string;
   manager: PM;
 };
+
+const require = createRequire(import.meta.url);
+const { version } = require('../../package.json');
 
 export async function ask(): Promise<ExpectedAnswers> {
   // const { version }: { version: string } = await Bun.file(new URL('../../package.json', import.meta.url)).json();

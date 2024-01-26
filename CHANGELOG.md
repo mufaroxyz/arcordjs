@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.8
+
+### Patch Changes
+
+- for the sake of god fix the es modules
+
 ## 0.0.7
 
 ### Patch Changes
