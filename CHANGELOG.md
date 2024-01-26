@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.9
+
+### Patch Changes
+
+- Add support to node based package managers
+
 ## 0.0.8
 
 ### Patch Changes

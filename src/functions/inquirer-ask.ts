@@ -39,10 +39,10 @@ export async function ask(): Promise<ExpectedAnswers> {
       default: getCurrentPackageManager(),
       choices: [
         // I've got fucking headaches over node's ESM resolution im not fucking touching it make it bun only
-        // { name: 'npm', value: PM.npm },
-        // { name: 'yarn', value: PM.yarn },
-        // { name: 'pnpm', value: PM.pnpm },
-        { name: 'bun (only supported)', value: PM.bun },
+        { name: 'npm', value: PM.npm },
+        { name: 'yarn', value: PM.yarn },
+        { name: 'pnpm', value: PM.pnpm },
+        { name: 'bun (recommended)', value: PM.bun },
         {
           name: 'none - do not install packages',
           value: PM.none,
