@@ -1,6 +1,6 @@
 {
   "name": "arcordjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A discord.js wrapper that makes it easier to create discord bots",
   "type": "module",
   "main": "./lib/index.js",
@@ -9,6 +9,7 @@
     "build:common": "swc compile src --out-dir lib",
     "build:types": "tsc",
     "dev:test-local": "bun run build && bun link",
+    "dev:check-release-files": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
     "lint": "eslint --fix src/**/**/*.ts",
     "ci": "pnpm run lint && pnpm run build",
     "release": "pnpm run lint && pnpm run build && changeset publish"
@@ -22,6 +23,10 @@
     "bot",
     "wrapper",
     "arcord"
+  ],
+  "files": [
+    "/lib",
+    "/projectTemplates"
   ],
   "author": "mufaroxyz",
   "license": "ISC",

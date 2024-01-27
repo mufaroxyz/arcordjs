@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.1.2
+
+### Patch Changes
+
+- Fix some files in project templates being ignored by .npmignore resulting in them not being published to the registry
+
 ## 0.1.1
 
 ### Patch Changes
