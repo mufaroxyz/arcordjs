@@ -3,24 +3,12 @@
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["lib", "browser"],
   "plugins": ["@typescript-eslint", "header", "simple-import-sort", "unused-imports", "path-alias"],
-  "settings": {
-    "import/resolver": {
-      "alias": {
-        "map": [
-          ["@webpack", "./src/webpack"],
-          ["@webpack/common", "./src/webpack/common"],
-          ["@utils", "./src/utils"],
-          ["@api", "./src/api"],
-          ["@components", "./src/components"]
-        ]
-      }
-    }
-  },
+
   "rules": {
-    "quotes": ["error", "double", { "avoidEscape": true }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "jsx-quotes": ["error", "prefer-double"],
     "no-mixed-spaces-and-tabs": "error",
-    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "arrow-parens": ["error", "as-needed"],
     "eol-last": ["error", "always"],
     "func-call-spacing": ["error", "never"],

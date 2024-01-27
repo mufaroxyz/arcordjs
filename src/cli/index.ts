@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
-import { Command } from "commander";
+import { Command } from 'commander';
+import { createRequire } from 'module';
 
-import devCommand from "./dev.js";
-import initCommand from "./init.js";
+import devCommand from './dev.js';
+import initCommand from './init.js';
+
+const require = createRequire(import.meta.url);
+const { version } = require('../../package.json');
 
 const program = new Command();
-program.version("0.1.0");
+program.version(version);
 
 program.addCommand(devCommand);
 program.addCommand(initCommand);

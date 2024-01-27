@@ -3,10 +3,10 @@ import {
   Channel,
   Client,
   DiscordAPIError,
-  RESTJSONErrorCodes as DiscordApiErrors,
   Guild,
   GuildMember,
   NewsChannel,
+  RESTJSONErrorCodes as DiscordApiErrors,
   Role,
   StageChannel,
   TextChannel,
@@ -39,7 +39,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -60,7 +60,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -78,7 +78,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -89,18 +89,18 @@ export class DiscordService {
   }
 
   public static async findAppCommand(client: Client, name: string): Promise<ApplicationCommand> {
-    let commands = await client.application.commands.fetch();
+    const commands = await client.application.commands.fetch();
     return commands.find(command => command.name === name);
   }
 
   public static async findMember(guild: Guild, input: string): Promise<GuildMember> {
     try {
-      let discordId = RegexService.discordId(input);
+      const discordId = RegexService.discordId(input);
       if (discordId) {
         return await guild.members.fetch(discordId);
       }
 
-      let tag = RegexService.tag(input);
+      const tag = RegexService.tag(input);
       if (tag) {
         return (await guild.members.fetch({ query: tag.username, limit: FETCH_MEMBER_LIMIT })).find(
           member => member.user.discriminator === tag.discriminator
@@ -111,7 +111,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -123,13 +123,13 @@ export class DiscordService {
 
   public static async findRole(guild: Guild, input: string): Promise<Role> {
     try {
-      let discordId = RegexService.discordId(input);
+      const discordId = RegexService.discordId(input);
       if (discordId) {
         return await guild.roles.fetch(discordId);
       }
 
-      let search = input.trim().toLowerCase().replace(/^@/, '');
-      let roles = await guild.roles.fetch();
+      const search = input.trim().toLowerCase().replace(/^@/, '');
+      const roles = await guild.roles.fetch();
       return (
         roles.find(role => role.name.toLowerCase() === search) ??
         roles.find(role => role.name.toLowerCase().includes(search))
@@ -137,7 +137,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -152,9 +152,9 @@ export class DiscordService {
     input: string
   ): Promise<NewsChannel | TextChannel> {
     try {
-      let discordId = RegexService.discordId(input);
+      const discordId = RegexService.discordId(input);
       if (discordId) {
-        let channel = await guild.channels.fetch(discordId);
+        const channel = await guild.channels.fetch(discordId);
         if (channel instanceof NewsChannel || channel instanceof TextChannel) {
           return channel;
         } else {
@@ -162,8 +162,8 @@ export class DiscordService {
         }
       }
 
-      let search = input.trim().toLowerCase().replace(/^#/, '').replaceAll(' ', '-');
-      let channels = [...(await guild.channels.fetch()).values()]
+      const search = input.trim().toLowerCase().replace(/^#/, '').replaceAll(' ', '-');
+      const channels = [...(await guild.channels.fetch()).values()]
         .filter(channel => channel instanceof NewsChannel || channel instanceof TextChannel)
         .map(channel => channel as NewsChannel | TextChannel);
       return (
@@ -173,7 +173,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -188,9 +188,9 @@ export class DiscordService {
     input: string
   ): Promise<VoiceChannel | StageChannel> {
     try {
-      let discordId = RegexService.discordId(input);
+      const discordId = RegexService.discordId(input);
       if (discordId) {
-        let channel = await guild.channels.fetch(discordId);
+        const channel = await guild.channels.fetch(discordId);
         if (channel instanceof VoiceChannel || channel instanceof StageChannel) {
           return channel;
         } else {
@@ -198,8 +198,8 @@ export class DiscordService {
         }
       }
 
-      let search = input.trim().toLowerCase().replace(/^#/, '');
-      let channels = [...(await guild.channels.fetch()).values()]
+      const search = input.trim().toLowerCase().replace(/^#/, '');
+      const channels = [...(await guild.channels.fetch()).values()]
         .filter(channel => channel instanceof VoiceChannel || channel instanceof StageChannel)
         .map(channel => channel as VoiceChannel | StageChannel);
       return (
@@ -209,7 +209,7 @@ export class DiscordService {
     } catch (error) {
       if (
         error instanceof DiscordAPIError &&
-        typeof error.code == 'number' &&
+        typeof error.code === 'number' &&
         IGNORED_ERRORS.includes(error.code)
       ) {
         return;
@@ -221,7 +221,7 @@ export class DiscordService {
 
   public static async findNotifyChannel(guild: Guild): Promise<TextChannel | NewsChannel> {
     // Prefer the system channel
-    let systemChannel = guild.systemChannel;
+    const { systemChannel } = guild;
     if (systemChannel && PermissionService.canSend(systemChannel, true)) {
       return systemChannel;
     }

@@ -1,10 +1,9 @@
-import path, { dirname } from 'path';
-import chokidar from 'chokidar';
-import { fileURLToPath } from 'url';
-import { exec } from 'child_process';
 import chalk from 'chalk';
+import { exec } from 'child_process';
+import chokidar from 'chokidar';
+import path from 'path';
+
 import Bot from '../../discord/bot.js';
-import arcordConfig from '../../functions/arcord-config.js';
 
 function getFileNameFromPath(filePath: string) {
   return filePath.split(path.sep).pop();
@@ -16,7 +15,7 @@ export default function devAction() {
   const projectDir = path.join(process.cwd(), 'src');
 
   const watcher = chokidar.watch(projectDir, {
-    ignored: /[\/\\]\./,
+    ignored: /[/\\]\./,
     persistent: true,
   });
 
@@ -55,13 +54,12 @@ export default function devAction() {
       ex.stdout?.pipe(process.stdout);
       ex.stderr?.pipe(process.stderr);
 
-      // exec('ts-clean-built --old --out .arcord --dir src');
       startBot();
     }
   });
 
   async function startBot() {
-    await bot.start(arcordConfig().token);
+    await bot.start();
   }
 
   async function restartBot() {

@@ -1,5 +1,6 @@
 import { CommandInteractionOptionResolver } from 'discord.js';
-import { EventListener } from '../classes/index.js';
+
+import { EventListener } from '../classes/event.js';
 
 export default new EventListener('interactionCreate', async (client, interaction) => {
   if (

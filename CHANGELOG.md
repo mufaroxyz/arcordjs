@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.1.0
+
+### Minor Changes
+
+- Improve overall experience with development
+
 ## 0.0.10
 
 ### Patch Changes

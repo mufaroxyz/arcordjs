@@ -2,11 +2,10 @@ import {
   CommandInteraction,
   CommandInteractionOptionResolver,
   ContextMenuCommandBuilder,
-  GuildMember,
-  Interaction,
   PermissionResolvable,
   SlashCommandBuilder,
 } from 'discord.js';
+
 import Bot from '../bot.js';
 
 interface CommandRunOptions {

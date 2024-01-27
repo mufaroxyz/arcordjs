@@ -1,4 +1,5 @@
 import { ButtonInteraction } from 'discord.js';
+
 import Bot from '../bot.js';
 
 interface ButtonRunOptions {

@@ -1,4 +1,5 @@
 import { ClientEvents } from 'discord.js';
+
 import Bot from '../bot.js';
 
 export class EventListener<Key extends keyof ClientEvents> {
