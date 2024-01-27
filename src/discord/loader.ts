@@ -1,12 +1,13 @@
 import { glob } from 'glob';
 import path from 'path';
+import { pathToFileURL } from 'url';
 
 import { ButtonType } from './typings/button.js';
 import { CommandType } from './typings/command.js';
 import { EventType } from './typings/event.js';
 
 async function importFresh(modulePath: string) {
-  const cacheBustingModulePath = `${modulePath}?update=${Date.now()}`;
+  const cacheBustingModulePath = pathToFileURL(`${modulePath}`).toString() + `?v=${Date.now()}`;
   return (await import(cacheBustingModulePath)).default;
 }
 

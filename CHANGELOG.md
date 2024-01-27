@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.1.1
+
+### Patch Changes
+
+- Fix Windows compatibility with absolute paths in ESModules
+
 ## 0.1.0
 
 ### Minor Changes
