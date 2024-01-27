@@ -1,6 +1,6 @@
-import { createSpinner } from 'nanospinner';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { exec } from "child_process";
+import { createSpinner } from "nanospinner";
+import { promisify } from "util";
 
 export enum PM {
     npm,
@@ -11,10 +11,10 @@ export enum PM {
 }
 
 export async function install(pm: Exclude<PM, PM.none>, path: string) {
-    const spinner = createSpinner('Installing Packages').start();
+    const spinner = createSpinner("Installing Packages").start();
 
-    return await promisify(exec)(`cd ${path} && ${PM[pm]} ${pm !== PM.yarn ? 'install' : ''}`)
-        .then((value) => {
+    return await promisify(exec)(`cd ${path} && ${PM[pm]} ${pm !== PM.yarn ? "install" : ""}`)
+        .then(value => {
             spinner.success();
             return value;
         })
@@ -24,7 +24,7 @@ export async function install(pm: Exclude<PM, PM.none>, path: string) {
         });
 }
 
-const Managers = ['npm', 'pnpm', 'yarn', 'bun'] as const;
+const Managers = ["npm", "pnpm", "yarn", "bun"] as const;
 
 export function getCurrentPackageManager() {
     const defaultManager = PM.npm;
@@ -34,7 +34,7 @@ export function getCurrentPackageManager() {
         return defaultManager;
     }
 
-    const manager = Managers.find((pm) => userAgent.startsWith(pm)) ?? Managers[defaultManager];
+    const manager = Managers.find(pm => userAgent.startsWith(pm)) ?? Managers[defaultManager];
 
     return PM[manager];
 }

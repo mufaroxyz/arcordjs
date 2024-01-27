@@ -1,5 +1,11 @@
 # arcordjs
 
+## 0.0.10
+
+### Patch Changes
+
+- Fixed SWC not reading the config file
+
 ## 0.0.9
 
 ### Patch Changes

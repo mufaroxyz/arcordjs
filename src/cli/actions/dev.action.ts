@@ -15,8 +15,6 @@ export default function devAction() {
 
   const projectDir = path.join(process.cwd(), 'src');
 
-  const swcrc = path.join(fileURLToPath(dirname(import.meta.url)), '../../..', 'configs', '.swcrc');
-
   const watcher = chokidar.watch(projectDir, {
     ignored: /[\/\\]\./,
     persistent: true,
@@ -52,11 +50,8 @@ export default function devAction() {
 
   watcher.on('ready', async () => {
     if (!watcherInitialized) {
-      console.clear();
       watcherInitialized = true;
-      const ex = exec(
-        `swc compile ${projectDir} --config-file ${swcrc} --quiet --watch --out-dir .arcord/cache/`
-      );
+      const ex = exec(`swc compile ${projectDir}  --quiet --watch --out-dir .arcord/cache/`);
       ex.stdout?.pipe(process.stdout);
       ex.stderr?.pipe(process.stderr);
 

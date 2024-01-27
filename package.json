@@ -1,19 +1,28 @@
 {
   "name": "arcordjs",
-  "version": "0.0.9",
-  "description": "",
+  "version": "0.0.10",
+  "description": "A discord.js wrapper that makes it easier to create discord bots",
   "type": "module",
   "main": "./lib/index.js",
   "scripts": {
     "build": "pnpm run build:common && pnpm run build:types",
     "build:common": "swc compile src --out-dir lib",
     "build:types": "tsc",
-    "dev:test-local": "pnpm run build && pnpm link",
-    "ci": "pnpm run build",
-    "release": "pnpm run build && changeset publish"
+    "dev:test-local": "bun run build && bun link",
+    "lint": "eslint --fix src/**/*.ts",
+    "ci": "pnpm run lint && pnpm run build",
+    "release": "pnpm run lint && pnpm run build && changeset publish"
   },
-  "bin": "lib/cli/index.js",
-  "keywords": [],
+  "bin": {
+    "arcord": "./lib/cli/index.js"
+  },
+  "keywords": [
+    "discord.js",
+    "discord",
+    "bot",
+    "wrapper",
+    "arcord"
+  ],
   "author": "mufaroxyz",
   "license": "ISC",
   "dependencies": {
@@ -24,10 +33,10 @@
     "glob": "^10.3.10",
     "inquirer": "^9.2.12",
     "nanospinner": "^1.1.0",
+    "node-fetch": "^3.3.2",
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
-    "validate-npm-package-name": "^5.0.0",
-    "node-fetch": "^3.3.2"
+    "validate-npm-package-name": "^5.0.0"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -38,6 +47,11 @@
     "@types/marked-terminal": "^6.0.1",
     "@types/node": "^20.10.0",
     "@types/validate-npm-package-name": "^4.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.3.2",
+    "eslint-plugin-header": "^3.1.1",
+    "eslint-plugin-path-alias": "^1.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "typescript": "^5.3.2"
   }
 }
